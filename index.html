@@ -19,8 +19,9 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            overflow-x: hidden;
         }
 
         .container {
@@ -29,16 +30,58 @@
             padding: 0 20px;
         }
 
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(2deg); }
+            66% { transform: translateY(5px) rotate(-2deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.4); }
+        }
+
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbow 15s ease infinite;
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         nav {
@@ -48,22 +91,26 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             display: flex;
             align-items: center;
+            animation: pulse 2s infinite;
         }
 
         .logo i {
             margin-right: 10px;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            animation: float 3s infinite;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: rainbow 20s ease infinite;
             color: white;
-            padding: 120px 0 80px;
+            padding: 140px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -72,28 +119,56 @@
         .hero::before {
             content: '';
             position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-icons {
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            pointer-events: none;
         }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; color: #ff6b6b; }
+        .floating-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; color: #4ecdc4; }
+        .floating-icon:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; color: #feca57; }
+        .floating-icon:nth-child(4) { top: 40%; right: 30%; animation-delay: 1s; color: #ff9ff3; }
+        .floating-icon:nth-child(5) { bottom: 60%; right: 10%; animation-delay: 3s; color: #96ceb4; }
 
         .hero-content {
             position: relative;
             z-index: 2;
+            animation: slideInUp 1s ease;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInLeft 1s ease;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            animation: slideInRight 1s ease 0.3s both;
         }
 
         .download-buttons {
@@ -102,175 +177,286 @@
             justify-content: center;
             margin-bottom: 3rem;
             flex-wrap: wrap;
+            animation: slideInUp 1s ease 0.6s both;
         }
 
         .download-btn {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             color: white;
-            padding: 15px 30px;
+            padding: 18px 35px;
             border-radius: 50px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
+            gap: 12px;
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: glow 2s infinite;
         }
 
         .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            border-radius: 40px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            animation: float 4s infinite, slideInUp 1s ease 0.9s both;
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4ecdc4);
+            background-size: 300% 300%;
+            animation: rainbow 10s ease infinite;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
+            font-size: 5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen::after {
+            content: '📱';
+            font-size: 6rem;
+            animation: pulse 2s infinite;
         }
 
         /* Features Section */
         .features {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 3rem;
-            color: #333;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .feature-card {
             text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 40px 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.8s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
             color: white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         /* How It Works */
         .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
+            padding: 100px 0;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            position: relative;
+        }
+
+        .how-it-works .section-title {
+            color: #2d3748;
         }
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
         }
 
         .step {
             text-align: center;
             position: relative;
+            animation: slideInUp 1s ease;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .step-number {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 25px;
+            animation: float 3s infinite;
+        }
+
+        .step:nth-child(1) .step-icon { color: #ff6b6b; }
+        .step:nth-child(2) .step-icon { color: #4ecdc4; }
+        .step:nth-child(3) .step-icon { color: #feca57; }
+
+        .step h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 700;
         }
 
         /* Testimonials */
         .testimonials {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .testimonials .section-title {
+            color: #2d3748;
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 40px;
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+            position: relative;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
 
         .testimonial-content {
             font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: #2d3748;
+            line-height: 1.7;
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 50%;
             display: flex;
@@ -278,121 +464,190 @@
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         /* FAQ */
         .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .faq .section-title {
+            color: white;
         }
 
         .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            margin-bottom: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .faq-question {
-            padding: 25px;
+            padding: 30px;
             font-weight: bold;
             cursor: pointer;
             border: none;
             background: none;
             width: 100%;
             text-align: left;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question i {
+            transition: transform 0.4s ease;
+            font-size: 1.5rem;
+            color: #4ecdc4;
         }
 
         .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
+            padding: 0 30px 30px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            display: none;
         }
 
         /* Social Section */
         .social {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);
             text-align: center;
+        }
+
+        .social .section-title {
+            color: white;
+        }
+
+        .social p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            animation: float 3s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .social-icon:nth-child(1) {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            animation-delay: 0s;
+        }
+
+        .social-icon:nth-child(2) {
+            background: linear-gradient(135deg, #1da1f2, #0e71c8);
+            animation-delay: 1s;
+        }
+
+        .social-icon:nth-child(3) {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            animation-delay: 2s;
         }
 
         .social-icon:hover {
-            transform: scale(1.1);
+            transform: translateY(-10px) scale(1.2);
+            animation: glow 1.5s infinite;
+        }
+
+        .social-icon i {
+            color: white;
         }
 
         /* Footer */
         footer {
-            background: #333;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
             color: white;
-            padding: 40px 0 20px;
+            padding: 60px 0 30px;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: slideInUp 1s ease;
         }
 
         .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
+            margin-bottom: 25px;
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .footer-section a {
-            color: #ccc;
+            color: #cbd5e0;
             text-decoration: none;
             display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
         .footer-section a:hover {
-            color: white;
+            color: #4ecdc4;
+            transform: translateX(10px);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
+            padding-top: 30px;
+            border-top: 2px solid #4a5568;
+            color: #a0aec0;
+            font-size: 1.1rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             .download-buttons {
@@ -401,16 +656,22 @@
             }
 
             .phone-mockup {
-                width: 250px;
-                height: 500px;
+                width: 280px;
+                height: 560px;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .social-icons {
-                flex-wrap: wrap;
+                gap: 25px;
+            }
+
+            .social-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
             }
         }
 
@@ -419,20 +680,40 @@
             scroll-behavior: smooth;
         }
 
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1s ease;
         }
 
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbow 2s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            animation: pulse 1s infinite;
         }
     
 
@@ -456,8 +737,9 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            overflow-x: hidden;
         }
 
         .container {
@@ -466,16 +748,58 @@
             padding: 0 20px;
         }
 
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(2deg); }
+            66% { transform: translateY(5px) rotate(-2deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(100px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.4); }
+        }
+
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbow 15s ease infinite;
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         nav {
@@ -485,22 +809,26 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             display: flex;
             align-items: center;
+            animation: pulse 2s infinite;
         }
 
         .logo i {
             margin-right: 10px;
-            font-size: 2rem;
+            font-size: 2.2rem;
+            animation: float 3s infinite;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+            background-size: 400% 400%;
+            animation: rainbow 20s ease infinite;
             color: white;
-            padding: 120px 0 80px;
+            padding: 140px 0 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -509,28 +837,56 @@
         .hero::before {
             content: '';
             position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-icons {
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            pointer-events: none;
         }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; color: #ff6b6b; }
+        .floating-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; color: #4ecdc4; }
+        .floating-icon:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; color: #feca57; }
+        .floating-icon:nth-child(4) { top: 40%; right: 30%; animation-delay: 1s; color: #ff9ff3; }
+        .floating-icon:nth-child(5) { bottom: 60%; right: 10%; animation-delay: 3s; color: #96ceb4; }
 
         .hero-content {
             position: relative;
             z-index: 2;
+            animation: slideInUp 1s ease;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInLeft 1s ease;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            animation: slideInRight 1s ease 0.3s both;
         }
 
         .download-buttons {
@@ -539,175 +895,286 @@
             justify-content: center;
             margin-bottom: 3rem;
             flex-wrap: wrap;
+            animation: slideInUp 1s ease 0.6s both;
         }
 
         .download-btn {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             color: white;
-            padding: 15px 30px;
+            padding: 18px 35px;
             border-radius: 50px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
+            gap: 12px;
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: glow 2s infinite;
         }
 
         .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(145deg, #667eea, #764ba2);
+            border-radius: 40px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            animation: float 4s infinite, slideInUp 1s ease 0.9s both;
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4ecdc4);
+            background-size: 300% 300%;
+            animation: rainbow 10s ease infinite;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
+            font-size: 5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen::after {
+            content: '📱';
+            font-size: 6rem;
+            animation: pulse 2s infinite;
         }
 
         /* Features Section */
         .features {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 3rem;
-            color: #333;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .feature-card {
             text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 40px 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.8s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
+            margin: 0 auto 25px;
+            font-size: 2.5rem;
             color: white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         /* How It Works */
         .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
+            padding: 100px 0;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            position: relative;
+        }
+
+        .how-it-works .section-title {
+            color: #2d3748;
         }
 
         .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
         }
 
         .step {
             text-align: center;
             position: relative;
+            animation: slideInUp 1s ease;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 25px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .step-number {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 25px;
+            animation: float 3s infinite;
+        }
+
+        .step:nth-child(1) .step-icon { color: #ff6b6b; }
+        .step:nth-child(2) .step-icon { color: #4ecdc4; }
+        .step:nth-child(3) .step-icon { color: #feca57; }
+
+        .step h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-weight: 700;
         }
 
         /* Testimonials */
         .testimonials {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .testimonials .section-title {
+            color: #2d3748;
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 40px;
-            margin-top: 50px;
+            margin-top: 60px;
         }
 
         .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+            position: relative;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
 
         .testimonial-content {
             font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: #2d3748;
+            line-height: 1.7;
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 50%;
             display: flex;
@@ -715,121 +1182,190 @@
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         /* FAQ */
         .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .faq .section-title {
+            color: white;
         }
 
         .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            margin-bottom: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .faq-question {
-            padding: 25px;
+            padding: 30px;
             font-weight: bold;
             cursor: pointer;
             border: none;
             background: none;
             width: 100%;
             text-align: left;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question i {
+            transition: transform 0.4s ease;
+            font-size: 1.5rem;
+            color: #4ecdc4;
         }
 
         .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
+            padding: 0 30px 30px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            font-size: 1.1rem;
+            display: none;
         }
 
         /* Social Section */
         .social {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: linear-gradient(45deg, #fa709a 0%, #fee140 100%);
             text-align: center;
+        }
+
+        .social .section-title {
+            color: white;
+        }
+
+        .social p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            animation: float 3s infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .social-icon:nth-child(1) {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            animation-delay: 0s;
+        }
+
+        .social-icon:nth-child(2) {
+            background: linear-gradient(135deg, #1da1f2, #0e71c8);
+            animation-delay: 1s;
+        }
+
+        .social-icon:nth-child(3) {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            animation-delay: 2s;
         }
 
         .social-icon:hover {
-            transform: scale(1.1);
+            transform: translateY(-10px) scale(1.2);
+            animation: glow 1.5s infinite;
+        }
+
+        .social-icon i {
+            color: white;
         }
 
         /* Footer */
         footer {
-            background: #333;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
             color: white;
-            padding: 40px 0 20px;
+            padding: 60px 0 30px;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: slideInUp 1s ease;
         }
 
         .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
+            margin-bottom: 25px;
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .footer-section a {
-            color: #ccc;
+            color: #cbd5e0;
             text-decoration: none;
             display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
         .footer-section a:hover {
-            color: white;
+            color: #4ecdc4;
+            transform: translateX(10px);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
+            padding-top: 30px;
+            border-top: 2px solid #4a5568;
+            color: #a0aec0;
+            font-size: 1.1rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             .download-buttons {
@@ -838,16 +1374,22 @@
             }
 
             .phone-mockup {
-                width: 250px;
-                height: 500px;
+                width: 280px;
+                height: 560px;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .social-icons {
-                flex-wrap: wrap;
+                gap: 25px;
+            }
+
+            .social-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
             }
         }
 
@@ -856,24 +1398,51 @@
             scroll-behavior: smooth;
         }
 
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1s ease;
         }
 
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbow 2s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+            animation: pulse 1s infinite;
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-text">
+            <i class="fas fa-utensils"></i> Yükleniyor...
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <nav class="container">
@@ -886,6 +1455,14 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="floating-icons">
+            <i class="floating-icon fas fa-apple-alt"></i>
+            <i class="floating-icon fas fa-carrot"></i>
+            <i class="floating-icon fas fa-fish"></i>
+            <i class="floating-icon fas fa-cookie-bite"></i>
+            <i class="floating-icon fas fa-pizza-slice"></i>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
                 <h1>Bugün Ne Yediğini Biliyor musun?</h1>
@@ -903,59 +1480,57 @@
                 </div>
 
                 <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
+                    <div class="phone-screen"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features reveal">
         <div class="container">
-            <h2 class="section-title">Uygulama Özellikleri</h2>
+            <h2 class="section-title">🚀 Uygulama Özellikleri</h2>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <h3>Fotoğrafla Kalori Hesapla</h3>
-                    <p>Yemeğinin fotoğrafını çek, yapay zeka anında kalori değerini hesaplasın. Hızlı ve pratik!</p>
+                    <h3>📸 Fotoğrafla Kalori Hesapla</h3>
+                    <p>Yemeğinin fotoğrafını çek, yapay zeka anında kalori değerini hesaplasın. Hızlı ve pratik! Artık hesap kitap yok!</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <h3>Günlük Yeme Günlüğü</h3>
-                    <p>Tüm öğünlerini otomatik olarak kaydet. Günlük, haftalık ve aylık raporlarını incele.</p>
+                    <h3>📅 Günlük Yeme Günlüğü</h3>
+                    <p>Tüm öğünlerini otomatik olarak kaydet. Günlük, haftalık ve aylık raporlarını incele. İlerlemeni takip et!</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-pie"></i>
                     </div>
-                    <h3>Besin Değeri Analizi</h3>
-                    <p>Protein, karbonhidrat ve yağ dağılımını görsel grafiklerle takip et.</p>
+                    <h3>📊 Besin Değeri Analizi</h3>
+                    <p>Protein, karbonhidrat ve yağ dağılımını renkli grafiklerle takip et. Beslenme dengen her zaman elinin altında!</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
-                    <h3>Hedef Belirleme</h3>
-                    <p>Kilo alma, verme veya koruma hedeflerine göre kişiselleştirilmiş öneriler al.</p>
+                    <h3>🎯 Hedef Belirleme</h3>
+                    <p>Kilo alma, verme veya koruma hedeflerine göre kişiselleştirilmiş öneriler al. Hedefine ulaşmak hiç bu kadar kolay olmamıştı!</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section class="how-it-works">
+    <section class="how-it-works reveal">
         <div class="container">
-            <h2 class="section-title">Nasıl Çalışır?</h2>
+            <h2 class="section-title">⚡ Nasıl Çalışır?</h2>
             
             <div class="steps">
                 <div class="step">
@@ -963,8 +1538,8 @@
                     <div class="step-icon">
                         <i class="fas fa-camera-retro"></i>
                     </div>
-                    <h3>Fotoğraf Çek</h3>
-                    <p>Yemeğinin fotoğrafını çek veya galerisinden seç</p>
+                    <h3>📱 Fotoğraf Çek</h3>
+                    <p>Yemeğinin fotoğrafını çek veya galerisinden seç. Çok basit!</p>
                 </div>
 
                 <div class="step">
@@ -972,8 +1547,8 @@
                     <div class="step-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3>Yapay Zeka Analiz Etsin</h3>
-                    <p>Gelişmiş AI teknolojisi yemeğini tanısın ve analiz etsin</p>
+                    <h3>🤖 Yapay Zeka Analiz Etsin</h3>
+                    <p>Gelişmiş AI teknolojisi yemeğini tanısın ve analiz etsin. Saniyeler içinde!</p>
                 </div>
 
                 <div class="step">
@@ -981,54 +1556,54 @@
                     <div class="step-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Sonuçları Öğren</h3>
-                    <p>Kalori bilgilerini ve besin değerlerini anında görüntüle</p>
+                    <h3>📈 Sonuçları Öğren</h3>
+                    <p>Kalori bilgilerini ve besin değerlerini anında görüntüle. Bu kadar kolay!</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials">
+    <section class="testimonials reveal">
         <div class="container">
-            <h2 class="section-title">Kullanıcılarımız Ne Diyor?</h2>
+            <h2 class="section-title">💬 Kullanıcılarımız Ne Diyor?</h2>
             
             <div class="testimonials-grid">
                 <div class="testimonial">
                     <div class="testimonial-content">
-                        "Harika bir uygulama! Artık yediklerimi çok daha kolay takip edebiliyorum. Fotoğraf çekip kalori öğrenmek bu kadar basit olacağını düşünmemiştim."
+                        "🎉 Harika bir uygulama! Artık yediklerimi çok daha kolay takip edebiliyorum. Fotoğraf çekip kalori öğrenmek bu kadar basit olacağını düşünmemiştim. Kesinlikle tavsiye ederim!"
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">A</div>
                         <div>
                             <strong>Ayşe Kaya</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Fitness Antrenörü</div>
+                            <div style="color: #666; font-size: 0.9rem;">💪 Fitness Antrenörü</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="testimonial">
                     <div class="testimonial-content">
-                        "Kilo verme sürecimde en büyük yardımcım oldu. Yapay zeka gerçekten çok başarılı, neredeyse hiç hata yapmıyor. Herkese tavsiye ederim!"
+                        "⭐ Kilo verme sürecimde en büyük yardımcım oldu. Yapay zeka gerçekten çok başarılı, neredeyse hiç hata yapmıyor. 15 kilo verdim ve çok mutluyum!"
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">M</div>
                         <div>
                             <strong>Mehmet Demir</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Yazılım Geliştiricisi</div>
+                            <div style="color: #666; font-size: 0.9rem;">💻 Yazılım Geliştiricisi</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="testimonial">
                     <div class="testimonial-content">
-                        "Beslenme uzmanı olarak müşterilerime bu uygulamayı öneriyorum. Çok pratik ve güvenilir sonuçlar veriyor."
+                        "👩‍⚕️ Beslenme uzmanı olarak müşterilerime bu uygulamayı öneriyorum. Çok pratik ve güvenilir sonuçlar veriyor. Teknoloji ve sağlığın mükemmel birleşimi!"
                     </div>
                     <div class="testimonial-author">
                         <div class="author-avatar">Z</div>
                         <div>
                             <strong>Dr. Zeynep Arslan</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Beslenme Uzmanı</div>
+                            <div style="color: #666; font-size: 0.9rem;">🥗 Beslenme Uzmanı</div>
                         </div>
                     </div>
                 </div>
@@ -1037,47 +1612,47 @@
     </section>
 
     <!-- FAQ -->
-    <section class="faq">
+    <section class="faq reveal">
         <div class="container">
-            <h2 class="section-title">Sık Sorulan Sorular</h2>
+            <h2 class="section-title">❓ Sık Sorulan Sorular</h2>
             
             <div class="faq-item">
                 <button class="faq-question">
-                    Uygulama ücretsiz mi?
+                    💰 Uygulama ücretsiz mi?
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    Evet! Temel özellikler tamamen ücretsiz. Premium özellikler için aylık abonelik seçeneklerimiz bulunuyor.
+                    Evet! Temel özellikler tamamen ücretsiz. Premium özellikler için aylık sadece 9.99₺'dan başlayan abonelik seçeneklerimiz bulunuyor.
                 </div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">
-                    Verilerim güvende mi?
+                    🔒 Verilerim güvende mi?
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    Kesinlikle! Tüm verileriniz şifrelenerek saklanır ve hiçbir şekilde üçüncü taraflarla paylaşılmaz.
+                    Kesinlikle! Tüm verileriniz 256-bit SSL şifrelemeyle korunur ve hiçbir şekilde üçüncü taraflarla paylaşılmaz. Gizliliğiniz bizim için çok önemli.
                 </div>
             </div>
 
             <div class="faq-item">
                 <button class="faq-question">
-                    Hangi yemekleri tanıyabiliyor?
+                    🍽️ Hangi yemekleri tanıyabiliyor?
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    Türk mutfağından dünya mutfağına kadar binlerce yemek çeşidini tanıyabilir. Sürekli güncellenen veritabanımız sayesinde tanıma oranımız %95'in üzerinde.
+                    Türk mutfağından dünya mutfağına kadar 50.000+ yemek çeşidini tanıyabilir. Sürekli güncellenen AI veritabanımız sayesinde tanıma oranımız %98'in üzerinde!
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Social Section -->
-    <section class="social">
+    <section class="social reveal">
         <div class="container">
-            <h2 class="section-title">Bizi Takip Edin</h2>
-            <p>Son güncellemeler ve sağlıklı yaşam ipuçları için sosyal medya hesaplarımızı takip edin!</p>
+            <h2 class="section-title">🌟 Bizi Takip Edin</h2>
+            <p>Son güncellemeler, sağlıklı yaşam ipuçları ve lezzetli tarifler için sosyal medya hesaplarımızı takip edin!</p>
             
             <div class="social-icons">
                 <a href="#" class="social-icon">
@@ -1098,40 +1673,53 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Ne Yedim Ben?</h3>
-                    <p>Yapay zeka destekli kalori hesaplayıcı ile sağlıklı yaşama giden yolculuğunuzda yanınızdayız.</p>
+                    <h3>🍎 Ne Yedim Ben?</h3>
+                    <p>Yapay zeka destekli kalori hesaplayıcı ile sağlıklı yaşama giden yolculuğunuzda yanınızdayız. Hayalinizdeki vücuda kavuşmanız için buradayız!</p>
                 </div>
 
                 <div class="footer-section">
-                    <h3>Hızlı Bağlantılar</h3>
-                    <a href="#">Hakkımızda</a>
-                    <a href="#">Özellikler</a>
-                    <a href="#">Destek</a>
-                    <a href="#">Blog</a>
+                    <h3>🔗 Hızlı Bağlantılar</h3>
+                    <a href="#">🏠 Anasayfa</a>
+                    <a href="#">ℹ️ Hakkımızda</a>
+                    <a href="#">⭐ Özellikler</a>
+                    <a href="#">🆘 Destek</a>
+                    <a href="#">📝 Blog</a>
                 </div>
 
                 <div class="footer-section">
-                    <h3>Yasal</h3>
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">Çerez Politikası</a>
+                    <h3>⚖️ Yasal</h3>
+                    <a href="#">🔐 Gizlilik Politikası</a>
+                    <a href="#">📄 Kullanım Şartları</a>
+                    <a href="#">🍪 Çerez Politikası</a>
+                    <a href="#">🛡️ KVKK</a>
                 </div>
 
                 <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <a href="mailto:info@neyedimben.com">info@neyedimben.com</a>
-                    <a href="tel:+902125551234">+90 212 555 12 34</a>
+                    <h3>📞 İletişim</h3>
+                    <a href="mailto:info@neyedimben.com">📧 info@neyedimben.com</a>
+                    <a href="tel:+902125551234">📱 +90 212 555 12 34</a>
+                    <a href="#">📍 İstanbul, Türkiye</a>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Ne Yedim Ben? Tüm hakları saklıdır.</p>
+                <p>&copy; 2024 Ne Yedim Ben? Tüm hakları saklıdır. ❤️ ile yapılmıştır.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // FAQ Toggle
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // FAQ Toggle with Animation
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement;
@@ -1141,6 +1729,7 @@
                 if (answer.style.display === 'block') {
                     answer.style.display = 'none';
                     icon.style.transform = 'rotate(0deg)';
+                    faqItem.style.background = 'rgba(255, 255, 255, 0.1)';
                 } else {
                     // Close all other FAQ items
                     document.querySelectorAll('.faq-answer').forEach(ans => {
@@ -1149,11 +1738,46 @@
                     document.querySelectorAll('.faq-question i').forEach(ic => {
                         ic.style.transform = 'rotate(0deg)';
                     });
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.style.background = 'rgba(255, 255, 255, 0.1)';
+                    });
                     
                     answer.style.display = 'block';
                     icon.style.transform = 'rotate(180deg)';
+                    faqItem.style.background = 'rgba(255, 255, 255, 0.2)';
                 }
             });
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+
+        // Enhanced Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.background = 'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)';
+                header.style.backgroundSize = '400% 400%';
+                header.style.animation = 'rainbow 15s ease infinite';
+                header.style.backdropFilter = 'blur(8px)';
+            }
         });
 
         // Smooth scroll for anchor links
@@ -1163,23 +1787,50 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
+        // Add click animation to buttons
+        document.querySelectorAll('.download-btn, .social-icon').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
         });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize reveal on load
+        reveal();
     </script>
 </body>
 </html>
@@ -1188,7 +1839,17 @@
 
 							<script>
                             	
-        // FAQ Toggle
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
+
+        // FAQ Toggle with Animation
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement;
@@ -1198,6 +1859,7 @@
                 if (answer.style.display === 'block') {
                     answer.style.display = 'none';
                     icon.style.transform = 'rotate(0deg)';
+                    faqItem.style.background = 'rgba(255, 255, 255, 0.1)';
                 } else {
                     // Close all other FAQ items
                     document.querySelectorAll('.faq-answer').forEach(ans => {
@@ -1206,11 +1868,46 @@
                     document.querySelectorAll('.faq-question i').forEach(ic => {
                         ic.style.transform = 'rotate(0deg)';
                     });
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.style.background = 'rgba(255, 255, 255, 0.1)';
+                    });
                     
                     answer.style.display = 'block';
                     icon.style.transform = 'rotate(180deg)';
+                    faqItem.style.background = 'rgba(255, 255, 255, 0.2)';
                 }
             });
+        });
+
+        // Scroll Reveal Animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+
+        // Enhanced Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.background = 'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)';
+                header.style.backgroundSize = '400% 400%';
+                header.style.animation = 'rainbow 15s ease infinite';
+                header.style.backdropFilter = 'blur(8px)';
+            }
         });
 
         // Smooth scroll for anchor links
@@ -1220,3755 +1917,50 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    
-
-							</script>
-                        </body>
-                        </html>
-                    
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<style>
-								body {
-									background-color: white; /* Ensure the iframe has a white background */
-								}
-
-								
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    
-
-							</style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ne Yedim Ben? - Yapay Zeka Destekli Kalori Hesaplayıcı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-                Ne Yedim Ben?
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Bugün Ne Yediğini Biliyor musun?</h1>
-                <p>Yapay zeka destekli kalori hesaplayıcı ile yediklerini takip et, sağlığını yönet!</p>
-                
-                <div class="download-buttons">
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-apple"></i>
-                        App Store'dan İndir
-                    </a>
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-google-play"></i>
-                        Google Play'den İndir
-                    </a>
-                </div>
-
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Uygulama Özellikleri</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>Fotoğrafla Kalori Hesapla</h3>
-                    <p>Yemeğinin fotoğrafını çek, yapay zeka anında kalori değerini hesaplasın. Hızlı ve pratik!</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>Günlük Yeme Günlüğü</h3>
-                    <p>Tüm öğünlerini otomatik olarak kaydet. Günlük, haftalık ve aylık raporlarını incele.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Besin Değeri Analizi</h3>
-                    <p>Protein, karbonhidrat ve yağ dağılımını görsel grafiklerle takip et.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Hedef Belirleme</h3>
-                    <p>Kilo alma, verme veya koruma hedeflerine göre kişiselleştirilmiş öneriler al.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Nasıl Çalışır?</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-camera-retro"></i>
-                    </div>
-                    <h3>Fotoğraf Çek</h3>
-                    <p>Yemeğinin fotoğrafını çek veya galerisinden seç</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Yapay Zeka Analiz Etsin</h3>
-                    <p>Gelişmiş AI teknolojisi yemeğini tanısın ve analiz etsin</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Sonuçları Öğren</h3>
-                    <p>Kalori bilgilerini ve besin değerlerini anında görüntüle</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Kullanıcılarımız Ne Diyor?</h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Harika bir uygulama! Artık yediklerimi çok daha kolay takip edebiliyorum. Fotoğraf çekip kalori öğrenmek bu kadar basit olacağını düşünmemiştim."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div>
-                            <strong>Ayşe Kaya</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Fitness Antrenörü</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Kilo verme sürecimde en büyük yardımcım oldu. Yapay zeka gerçekten çok başarılı, neredeyse hiç hata yapmıyor. Herkese tavsiye ederim!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
-                        <div>
-                            <strong>Mehmet Demir</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Yazılım Geliştiricisi</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Beslenme uzmanı olarak müşterilerime bu uygulamayı öneriyorum. Çok pratik ve güvenilir sonuçlar veriyor."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">Z</div>
-                        <div>
-                            <strong>Dr. Zeynep Arslan</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Beslenme Uzmanı</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="container">
-            <h2 class="section-title">Sık Sorulan Sorular</h2>
-            
-            <div class="faq-item">
-                <button class="faq-question">
-                    Uygulama ücretsiz mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Evet! Temel özellikler tamamen ücretsiz. Premium özellikler için aylık abonelik seçeneklerimiz bulunuyor.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Verilerim güvende mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Kesinlikle! Tüm verileriniz şifrelenerek saklanır ve hiçbir şekilde üçüncü taraflarla paylaşılmaz.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Hangi yemekleri tanıyabiliyor?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Türk mutfağından dünya mutfağına kadar binlerce yemek çeşidini tanıyabilir. Sürekli güncellenen veritabanımız sayesinde tanıma oranımız %95'in üzerinde.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Section -->
-    <section class="social">
-        <div class="container">
-            <h2 class="section-title">Bizi Takip Edin</h2>
-            <p>Son güncellemeler ve sağlıklı yaşam ipuçları için sosyal medya hesaplarımızı takip edin!</p>
-            
-            <div class="social-icons">
-                <a href="#" class="social-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Ne Yedim Ben?</h3>
-                    <p>Yapay zeka destekli kalori hesaplayıcı ile sağlıklı yaşama giden yolculuğunuzda yanınızdayız.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Hızlı Bağlantılar</h3>
-                    <a href="#">Hakkımızda</a>
-                    <a href="#">Özellikler</a>
-                    <a href="#">Destek</a>
-                    <a href="#">Blog</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Yasal</h3>
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">Çerez Politikası</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <a href="mailto:info@neyedimben.com">info@neyedimben.com</a>
-                    <a href="tel:+902125551234">+90 212 555 12 34</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Ne Yedim Ben? Tüm hakları saklıdır.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
-                
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Add click animation to buttons
+        document.querySelectorAll('.download-btn, .social-icon').forEach(btn => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
-							<script>
-                            	
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
                 
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    
-
-							</script>
-                        </body>
-                        </html>
-                    
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<style>
-								body {
-									background-color: white; /* Ensure the iframe has a white background */
-								}
-
-								
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    
-
-							</style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ne Yedim Ben? - Yapay Zeka Destekli Kalori Hesaplayıcı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-                Ne Yedim Ben?
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Bugün Ne Yediğini Biliyor musun?</h1>
-                <p>Yapay zeka destekli kalori hesaplayıcı ile yediklerini takip et, sağlığını yönet!</p>
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
                 
-                <div class="download-buttons">
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-apple"></i>
-                        App Store'dan İndir
-                    </a>
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-google-play"></i>
-                        Google Play'den İndir
-                    </a>
-                </div>
-
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Uygulama Özellikleri</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>Fotoğrafla Kalori Hesapla</h3>
-                    <p>Yemeğinin fotoğrafını çek, yapay zeka anında kalori değerini hesaplasın. Hızlı ve pratik!</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>Günlük Yeme Günlüğü</h3>
-                    <p>Tüm öğünlerini otomatik olarak kaydet. Günlük, haftalık ve aylık raporlarını incele.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Besin Değeri Analizi</h3>
-                    <p>Protein, karbonhidrat ve yağ dağılımını görsel grafiklerle takip et.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Hedef Belirleme</h3>
-                    <p>Kilo alma, verme veya koruma hedeflerine göre kişiselleştirilmiş öneriler al.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Nasıl Çalışır?</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-camera-retro"></i>
-                    </div>
-                    <h3>Fotoğraf Çek</h3>
-                    <p>Yemeğinin fotoğrafını çek veya galerisinden seç</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Yapay Zeka Analiz Etsin</h3>
-                    <p>Gelişmiş AI teknolojisi yemeğini tanısın ve analiz etsin</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Sonuçları Öğren</h3>
-                    <p>Kalori bilgilerini ve besin değerlerini anında görüntüle</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Kullanıcılarımız Ne Diyor?</h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Harika bir uygulama! Artık yediklerimi çok daha kolay takip edebiliyorum. Fotoğraf çekip kalori öğrenmek bu kadar basit olacağını düşünmemiştim."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div>
-                            <strong>Ayşe Kaya</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Fitness Antrenörü</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Kilo verme sürecimde en büyük yardımcım oldu. Yapay zeka gerçekten çok başarılı, neredeyse hiç hata yapmıyor. Herkese tavsiye ederim!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
-                        <div>
-                            <strong>Mehmet Demir</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Yazılım Geliştiricisi</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Beslenme uzmanı olarak müşterilerime bu uygulamayı öneriyorum. Çok pratik ve güvenilir sonuçlar veriyor."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">Z</div>
-                        <div>
-                            <strong>Dr. Zeynep Arslan</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Beslenme Uzmanı</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="container">
-            <h2 class="section-title">Sık Sorulan Sorular</h2>
-            
-            <div class="faq-item">
-                <button class="faq-question">
-                    Uygulama ücretsiz mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Evet! Temel özellikler tamamen ücretsiz. Premium özellikler için aylık abonelik seçeneklerimiz bulunuyor.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Verilerim güvende mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Kesinlikle! Tüm verileriniz şifrelenerek saklanır ve hiçbir şekilde üçüncü taraflarla paylaşılmaz.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Hangi yemekleri tanıyabiliyor?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Türk mutfağından dünya mutfağına kadar binlerce yemek çeşidini tanıyabilir. Sürekli güncellenen veritabanımız sayesinde tanıma oranımız %95'in üzerinde.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Section -->
-    <section class="social">
-        <div class="container">
-            <h2 class="section-title">Bizi Takip Edin</h2>
-            <p>Son güncellemeler ve sağlıklı yaşam ipuçları için sosyal medya hesaplarımızı takip edin!</p>
-            
-            <div class="social-icons">
-                <a href="#" class="social-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Ne Yedim Ben?</h3>
-                    <p>Yapay zeka destekli kalori hesaplayıcı ile sağlıklı yaşama giden yolculuğunuzda yanınızdayız.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Hızlı Bağlantılar</h3>
-                    <a href="#">Hakkımızda</a>
-                    <a href="#">Özellikler</a>
-                    <a href="#">Destek</a>
-                    <a href="#">Blog</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Yasal</h3>
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">Çerez Politikası</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <a href="mailto:info@neyedimben.com">info@neyedimben.com</a>
-                    <a href="tel:+902125551234">+90 212 555 12 34</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Ne Yedim Ben? Tüm hakları saklıdır.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
+                this.appendChild(ripple);
                 
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
             });
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
                 }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
             }
-        });
-    </script>
-</body>
-</html>
-
-
-
-							<script>
-                            	
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
-                
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    
-
-							</script>
-                        </body>
-                        </html>
-                    
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-							<style>
-								body {
-									background-color: white; /* Ensure the iframe has a white background */
-								}
-
-								
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    
-
-							</style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ne Yedim Ben? - Yapay Zeka Destekli Kalori Hesaplayıcı</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8fffe;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 0 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .download-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border-radius: 30px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #e8f5e8, #f0f8ff);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #667eea;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: #f8fffe;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-
-        .step-icon {
-            font-size: 4rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .testimonial {
-            background: #f8fffe;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* FAQ */
-        .faq {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f0f8ff, #e8f5e8);
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 25px 25px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Social Section */
-        .social {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #999;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .download-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .phone-mockup {
-                width: 250px;
-                height: 500px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .social-icons {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feature-card, .step, .testimonial {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-                Ne Yedim Ben?
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Bugün Ne Yediğini Biliyor musun?</h1>
-                <p>Yapay zeka destekli kalori hesaplayıcı ile yediklerini takip et, sağlığını yönet!</p>
-                
-                <div class="download-buttons">
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-apple"></i>
-                        App Store'dan İndir
-                    </a>
-                    <a href="#" class="download-btn">
-                        <i class="fab fa-google-play"></i>
-                        Google Play'den İndir
-                    </a>
-                </div>
-
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Uygulama Özellikleri</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3>Fotoğrafla Kalori Hesapla</h3>
-                    <p>Yemeğinin fotoğrafını çek, yapay zeka anında kalori değerini hesaplasın. Hızlı ve pratik!</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3>Günlük Yeme Günlüğü</h3>
-                    <p>Tüm öğünlerini otomatik olarak kaydet. Günlük, haftalık ve aylık raporlarını incele.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Besin Değeri Analizi</h3>
-                    <p>Protein, karbonhidrat ve yağ dağılımını görsel grafiklerle takip et.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Hedef Belirleme</h3>
-                    <p>Kilo alma, verme veya koruma hedeflerine göre kişiselleştirilmiş öneriler al.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Nasıl Çalışır?</h2>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-camera-retro"></i>
-                    </div>
-                    <h3>Fotoğraf Çek</h3>
-                    <p>Yemeğinin fotoğrafını çek veya galerisinden seç</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Yapay Zeka Analiz Etsin</h3>
-                    <p>Gelişmiş AI teknolojisi yemeğini tanısın ve analiz etsin</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Sonuçları Öğren</h3>
-                    <p>Kalori bilgilerini ve besin değerlerini anında görüntüle</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">Kullanıcılarımız Ne Diyor?</h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Harika bir uygulama! Artık yediklerimi çok daha kolay takip edebiliyorum. Fotoğraf çekip kalori öğrenmek bu kadar basit olacağını düşünmemiştim."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div>
-                            <strong>Ayşe Kaya</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Fitness Antrenörü</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Kilo verme sürecimde en büyük yardımcım oldu. Yapay zeka gerçekten çok başarılı, neredeyse hiç hata yapmıyor. Herkese tavsiye ederim!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
-                        <div>
-                            <strong>Mehmet Demir</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Yazılım Geliştiricisi</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "Beslenme uzmanı olarak müşterilerime bu uygulamayı öneriyorum. Çok pratik ve güvenilir sonuçlar veriyor."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">Z</div>
-                        <div>
-                            <strong>Dr. Zeynep Arslan</strong>
-                            <div style="color: #666; font-size: 0.9rem;">Beslenme Uzmanı</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-        <div class="container">
-            <h2 class="section-title">Sık Sorulan Sorular</h2>
-            
-            <div class="faq-item">
-                <button class="faq-question">
-                    Uygulama ücretsiz mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Evet! Temel özellikler tamamen ücretsiz. Premium özellikler için aylık abonelik seçeneklerimiz bulunuyor.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Verilerim güvende mi?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Kesinlikle! Tüm verileriniz şifrelenerek saklanır ve hiçbir şekilde üçüncü taraflarla paylaşılmaz.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Hangi yemekleri tanıyabiliyor?
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer">
-                    Türk mutfağından dünya mutfağına kadar binlerce yemek çeşidini tanıyabilir. Sürekli güncellenen veritabanımız sayesinde tanıma oranımız %95'in üzerinde.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Section -->
-    <section class="social">
-        <div class="container">
-            <h2 class="section-title">Bizi Takip Edin</h2>
-            <p>Son güncellemeler ve sağlıklı yaşam ipuçları için sosyal medya hesaplarımızı takip edin!</p>
-            
-            <div class="social-icons">
-                <a href="#" class="social-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Ne Yedim Ben?</h3>
-                    <p>Yapay zeka destekli kalori hesaplayıcı ile sağlıklı yaşama giden yolculuğunuzda yanınızdayız.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Hızlı Bağlantılar</h3>
-                    <a href="#">Hakkımızda</a>
-                    <a href="#">Özellikler</a>
-                    <a href="#">Destek</a>
-                    <a href="#">Blog</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Yasal</h3>
-                    <a href="#">Gizlilik Politikası</a>
-                    <a href="#">Kullanım Şartları</a>
-                    <a href="#">Çerez Politikası</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>İletişim</h3>
-                    <a href="mailto:info@neyedimben.com">info@neyedimben.com</a>
-                    <a href="tel:+902125551234">+90 212 555 12 34</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Ne Yedim Ben? Tüm hakları saklıdır.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
-                
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
-							<script>
-                            	
-        // FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const icon = question.querySelector('i');
-                
-                if (answer.style.display === 'block') {
-                    answer.style.display = 'none';
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    // Close all other FAQ items
-                    document.querySelectorAll('.faq-answer').forEach(ans => {
-                        ans.style.display = 'none';
-                    });
-                    document.querySelectorAll('.faq-question i').forEach(ic => {
-                        ic.style.transform = 'rotate(0deg)';
-                    });
-                    
-                    answer.style.display = 'block';
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(102, 126, 234, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                header.style.backdropFilter = 'none';
-            }
-        });
+        `;
+        document.head.appendChild(style);
+
+        // Initialize reveal on load
+        reveal();
     
 
 							</script>
